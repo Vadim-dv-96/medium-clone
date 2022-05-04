@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const Auth = () => {
   console.log('authrender');
@@ -18,8 +19,9 @@ export const Auth = () => {
   const [username, setUsername] = useState('');
   const { response, isLoading, error, doFetch } = useFetch(apiUrl);
   const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
+  const [{ token, setToken }] = useLocalStorage('token');
 
-  console.log('EMAIL', email);
+  console.log('token', token);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,7 +36,7 @@ export const Auth = () => {
     if (!response) {
       return;
     }
-    localStorage.setItem('token', response.user.token);
+    setToken(response.user.token);
     setIsSuccessfullSubmit(true);
   }, [response]);
 
