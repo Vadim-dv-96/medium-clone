@@ -57,5 +57,3 @@ export type ResponseType = {
     username: string;
   };
 };
-
-// [data:{response:any, isLoading:boolean, error:any}, doFetch:any]
